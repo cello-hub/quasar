@@ -1,0 +1,18 @@
+version: '3.0'
+services:
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=quasar
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - ./mysql/db:/var/lib/mysql
+      - ./mysql/conf/my.cnf:/etc/my.cnf
+      - ./mysql/init:/docker-entrypoint-initdb.d/ # 存放初始化的脚本
+    networks:
+      - mysql_bridge
+networks:
+  mysql_bridge:
+    driver: bridge
