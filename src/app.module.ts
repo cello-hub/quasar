@@ -10,12 +10,21 @@ import { Social } from './entities/social'
 import { SocialModule } from './social/social.module'
 import { SheepEvent } from './entities/sheepEvent'
 import { SheepEventModule } from './sheep-event/sheep-event.module'
+import { ENV_DEV, ENV_PROD } from './utils/env'
+
+const envFilePath = ['.env']
+if (ENV_DEV) {
+  envFilePath.unshift('.env.dev')
+} else if (ENV_PROD) {
+  envFilePath.unshift('.env.prod')
+}
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      cache: true
+      cache: true,
+      envFilePath
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

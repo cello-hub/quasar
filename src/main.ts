@@ -2,15 +2,22 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { ResponseInterceptor } from './interceptor/response'
 import { HttpExceptionFilter } from './filter/except'
+import { ENV_DEV } from './utils/env'
+
+const PORT = process.env.PORT || 8080
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModule, {
+    logger: ENV_DEV ? ['log', 'debug', 'error', 'warn'] : ['error', 'warn']
+  })
   app.enableCors()
   app.useGlobalInterceptors(new ResponseInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())
 
-  await app.listen(3000)
+  await app.listen(PORT)
 
-  console.log('http://127.0.0.1:3000')
+  console.log(
+    `Server started on env ${process.env.APP_MODE}, http://127.0.0.1:${PORT}`
+  )
 }
 bootstrap()
