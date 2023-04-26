@@ -5,7 +5,6 @@ import { HttpExceptionFilter } from './filter/except'
 import { ENV_DEV } from './utils/env'
 
 const PORT = process.env.PORT || 8080
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ENV_DEV ? ['log', 'debug', 'error', 'warn'] : ['error', 'warn']
