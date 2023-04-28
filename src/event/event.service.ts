@@ -13,15 +13,14 @@ export class EventService {
   ) {}
 
   create(createEventDto: CreateEventDto) {
-    const sheepEvent = new Event()
-    sheepEvent.name = createEventDto.name
-    sheepEvent.desc = createEventDto.desc
-    sheepEvent.link = createEventDto.link
-    sheepEvent.finished = !!createEventDto.finished
-    sheepEvent.remark = createEventDto.remark
-    console.log(sheepEvent)
+    const event = new Event()
+    event.name = createEventDto.name
+    event.desc = createEventDto.desc
+    event.link = createEventDto.link
+    event.finished = !!createEventDto.finished
+    event.remark = createEventDto.remark
 
-    return this.repository.save(sheepEvent)
+    return this.repository.save(event)
   }
 
   findAll() {
@@ -42,6 +41,6 @@ export class EventService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} sheepEvent`
+    return `This action removes a #${id} event`
   }
 }
