@@ -38,5 +38,5 @@ AES_KEY=
 ## docker 部署
 
 ```
-
+deploy.sh
 ```
