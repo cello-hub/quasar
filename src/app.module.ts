@@ -8,7 +8,7 @@ import { ChainModule } from './chain/chain.module'
 import { Couponer } from './entities/couponer'
 import { Social } from './entities/social'
 import { SocialModule } from './social/social.module'
-import { Event } from './entities/Event'
+import { Event } from './entities/event'
 import { EventModule } from './event/event.module'
 import { ENV_DEV, ENV_PROD } from './utils/env'
 
