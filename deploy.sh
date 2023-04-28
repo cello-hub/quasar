@@ -1,12 +1,10 @@
 #!/bin/bash
-image_name="quasar"
-container_name="/api"
+mysql_container_name="mysql-db"
+server_container_name="server"
 
-docker stop $container_name
-docker rm $container_name
-docker rmi $image_name
-
-docker build -t $image_name .
-docker run -d --name $container_name -p 3000:3000 $image_name
+docker stop $mysql_container_name
+docker stop $server_container_name
+docker rm $mysql_container_name
+docker rm $server_container_name
 
 docker-compose --env-file .env.prod up -d
