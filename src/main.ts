@@ -17,7 +17,7 @@ async function bootstrap() {
   await app.listen(PORT)
 
   console.log(
-    `Server started on env ${process.env.APP_MODE}, http://127.0.0.1:${PORT}`
+    `Server started in ${process.env.APP_MODE} mode, http://127.0.0.1:${PORT}`
   )
 }
 bootstrap()

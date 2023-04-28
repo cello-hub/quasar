@@ -1,4 +1,4 @@
-export class CreateSheepEventDto {
+export class CreateEventDto {
   name: string
   desc: string
   link: string
