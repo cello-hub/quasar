@@ -8,8 +8,8 @@ import { ChainModule } from './chain/chain.module'
 import { Couponer } from './entities/couponer'
 import { Social } from './entities/social'
 import { SocialModule } from './social/social.module'
-import { SheepEvent } from './entities/sheepEvent'
-import { SheepEventModule } from './sheep-event/sheep-event.module'
+import { Event } from './entities/event'
+import { EventModule } from './event/event.module'
 import { ENV_DEV, ENV_PROD } from './utils/env'
 
 const envFilePath = ['.env']
@@ -42,11 +42,11 @@ if (ENV_DEV) {
       },
       inject: [ConfigService]
     }),
-    TypeOrmModule.forFeature([Wallet, Chain, Couponer, Social, SheepEvent]),
+    TypeOrmModule.forFeature([Wallet, Chain, Couponer, Social, Event]),
     WalletModule,
     ChainModule,
     SocialModule,
-    SheepEventModule
+    EventModule
   ],
   controllers: []
 })

@@ -7,4 +7,7 @@ docker stop $server_container_name
 docker rm $mysql_container_name
 docker rm $server_container_name
 
+server_image_name="quasar-server"
+docker rmi $server_image_name
+
 docker-compose --env-file .env.prod up -d
