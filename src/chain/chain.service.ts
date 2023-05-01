@@ -14,10 +14,10 @@ export class ChainService {
   async create(createChainDto: CreateChainDto) {
     const chain = new Chain()
     chain.topic = createChainDto.topic
-    chain.name = createChainDto.name
+    // chain.name = createChainDto.name
     chain.chain_id = createChainDto.chain_id
-    chain.is_mainnet = createChainDto.is_mainnet
-    chain.rpc_url = createChainDto.rpc_url
+    // chain.is_mainnet = createChainDto.is_mainnet
+    // chain.rpc_url = createChainDto.rpc_url
 
     return await this.chainRepository.save(chain)
   }

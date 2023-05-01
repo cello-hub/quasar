@@ -11,6 +11,7 @@ import { SocialModule } from './social/social.module'
 import { Event } from './entities/event'
 import { EventModule } from './event/event.module'
 import { ENV_DEV, ENV_PROD } from './utils/env'
+import { RpcNode } from './entities/rpc-node'
 
 const envFilePath = ['.env']
 if (ENV_DEV) {
@@ -42,7 +43,7 @@ if (ENV_DEV) {
       },
       inject: [ConfigService]
     }),
-    TypeOrmModule.forFeature([Wallet, Chain, Couponer, Social, Event]),
+    TypeOrmModule.forFeature([Wallet, Chain, Couponer, Social, Event, RpcNode]),
     WalletModule,
     ChainModule,
     SocialModule,
