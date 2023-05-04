@@ -17,7 +17,7 @@ export class Social extends BaseEntity {
 
   @Column({
     type: 'enum',
-    enum: ['google', 'twitter', 'facebook', 'telegram', 'discord'],
+    enum: ['Google', 'Twitter', 'Facebook', 'Telegram', 'Discord'],
     comment: '平台'
   })
   platform: string
