@@ -13,6 +13,7 @@ import { EventModule } from './event/event.module'
 import { ENV_DEV, ENV_PROD } from './utils/env'
 import { RpcNode } from './entities/rpc-node'
 import { Admin } from './entities/admin'
+import { TwitterModule } from './twitter/twitter.module'
 
 const envFilePath = ['.env']
 if (ENV_DEV) {
@@ -56,7 +57,8 @@ if (ENV_DEV) {
     WalletModule,
     ChainModule,
     SocialModule,
-    EventModule
+    EventModule,
+    TwitterModule
   ],
   controllers: []
 })
