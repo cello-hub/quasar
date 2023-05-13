@@ -1,19 +1,9 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { WalletModule } from './wallet/wallet.module'
-import { Wallet } from './entities/wallet'
-import { Chain } from './entities/chain'
-import { ChainModule } from './chain/chain.module'
-import { Couponer } from './entities/couponer'
-import { Social } from './entities/social'
-import { SocialModule } from './social/social.module'
-import { Event } from './entities/event'
-import { EventModule } from './event/event.module'
 import { ENV_DEV, ENV_PROD } from './utils/env'
-import { RpcNode } from './entities/rpc-node'
-import { Admin } from './entities/admin'
-import { TwitterModule } from './twitter/twitter.module'
+import modules from './modules'
+import tables from './tables'
 
 const envFilePath = ['.env']
 if (ENV_DEV) {
@@ -45,20 +35,8 @@ if (ENV_DEV) {
       },
       inject: [ConfigService]
     }),
-    TypeOrmModule.forFeature([
-      Admin,
-      Wallet,
-      Chain,
-      Couponer,
-      Social,
-      Event,
-      RpcNode
-    ]),
-    WalletModule,
-    ChainModule,
-    SocialModule,
-    EventModule,
-    TwitterModule
+    TypeOrmModule.forFeature([...tables]),
+    ...modules
   ],
   controllers: []
 })
