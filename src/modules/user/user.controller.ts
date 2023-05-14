@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Response, Ip } from '@nestjs/common'
 import { UserService } from './user.service'
-import { encrypt } from 'src/utils/AESEncrypt'
+import { encrypt } from '../../utils/AESEncrypt'
 
 @Controller('user')
 export class UserController {

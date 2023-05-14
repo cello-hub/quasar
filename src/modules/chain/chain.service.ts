@@ -3,7 +3,7 @@ import { CreateChainDto } from './dto/create-chain.dto'
 import { UpdateChainDto } from './dto/update-chain.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { Chain } from 'src/entities/chain'
+import Chain from '../../entities/chain'
 
 @Injectable()
 export class ChainService {
@@ -11,6 +11,7 @@ export class ChainService {
     @InjectRepository(Chain)
     private readonly chainRepository: Repository<Chain>
   ) {}
+
   async create(createChainDto: CreateChainDto) {
     const chain = new Chain()
     chain.topic = createChainDto.topic
@@ -27,7 +28,7 @@ export class ChainService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} chain`
+    return this.chainRepository.findOneBy({ id })
   }
 
   update(id: number, updateChainDto: UpdateChainDto) {

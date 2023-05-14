@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common'
 import { SocialService } from './social.service'
 import { CreateSocialDto } from './dto/create-social.dto'
 import { UpdateSocialDto } from './dto/update-social.dto'
-import { decrypt } from 'src/utils/AESEncrypt'
+import { decrypt } from '../../utils/AESEncrypt'
 
 @Controller('social')
 export class SocialController {

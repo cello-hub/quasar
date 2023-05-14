@@ -1,8 +1,8 @@
 import BaseEntity from './base'
-import { Entity, Column } from 'typeorm'
-
+import { Entity, Column, ManyToOne } from 'typeorm'
+import Chain from './chain'
 @Entity()
-export class Wallet extends BaseEntity {
+export default class Wallet extends BaseEntity {
   @Column({
     unique: true,
     nullable: false,
@@ -10,11 +10,14 @@ export class Wallet extends BaseEntity {
   })
   address: string
 
+  @ManyToOne(() => Chain, { nullable: false })
+  chain: Chain
+
   @Column({
     nullable: true,
     comment: '私钥'
   })
-  pk: string
+  secret: string
 
   @Column({
     nullable: true,
@@ -27,7 +30,7 @@ export class Wallet extends BaseEntity {
     default: '0',
     comment: '账户余额'
   })
-  balance: string
+  amount: string
 
   @Column({
     default: false,

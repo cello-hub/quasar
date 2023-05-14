@@ -3,7 +3,7 @@ import BaseEntity from './base'
 
 // 撸毛记录
 @Entity()
-export class Couponer extends BaseEntity {
+export default class Couponer extends BaseEntity {
   @Column({
     comment: '自定义名称'
   })

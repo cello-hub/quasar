@@ -1,5 +1,5 @@
 import { INestApplicationContext } from '@nestjs/common'
-import { WalletService } from '../../src/wallet/wallet.service'
+import { WalletService } from '../../src/modules/wallet/wallet.service'
 
 export const GetAccounts = async (app: INestApplicationContext) => {
   console.log('create account')

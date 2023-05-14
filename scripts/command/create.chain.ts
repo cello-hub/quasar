@@ -1,12 +1,11 @@
 import { INestApplicationContext } from '@nestjs/common'
-import chains from 'src/constants/chains'
-import { ChainService } from 'src/chain/chain.service'
-import { log } from 'console'
+import chains from '../../src/constants/chains'
+import { ChainService } from '../../src/modules/chain/chain.service'
 
 export const CreateChains = async (app: INestApplicationContext) => {
   const service = app.get(ChainService)
 
-  chains.map(async (chain) => {
-    console.log(chains)
-  })
+  for (let i = 0; i < chains.length; i++) {
+    await service.create(chains[i])
+  }
 }

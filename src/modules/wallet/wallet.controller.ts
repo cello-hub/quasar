@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Put, Param, Body } from '@nestjs/common'
 import { WalletService } from './wallet.service'
 import { UpdateWalletDto } from './dto/update-wallet.dto'
-import { decrypt } from 'src/utils/AESEncrypt'
+import { decrypt } from '../../utils/AESEncrypt'
 import { ethers } from 'ethers'
 
 @Controller('wallet')
@@ -37,9 +37,9 @@ export class WalletController {
   async getPk(@Param('address') address: string) {
     const wallet = await this.walletService.findOneByAddress(address)
 
-    const pk = decrypt(wallet.pk)
-    if (pk) {
-      return { pk }
+    const secret = decrypt(wallet.secret)
+    if (secret) {
+      return { secret }
     } else {
       return {
         code: 400,
@@ -52,7 +52,7 @@ export class WalletController {
   async findAll() {
     const list = await this.walletService.findAll()
     return list.map((wallet) => {
-      wallet.balance = parseFloat(ethers.formatEther(wallet.balance)).toFixed(4)
+      wallet.amount = parseFloat(ethers.formatEther(wallet.amount)).toFixed(4)
 
       return wallet
     })

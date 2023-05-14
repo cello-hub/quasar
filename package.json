@@ -8,7 +8,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "nest build",
-    "execute": "ts-node ./scripts/execute.ts",
+    "execute:dev": "cross-env APP_MODE=dev ts-node ./scripts/execute.ts",
+    "execute:prod": "cross-env APP_MODE=prod ts-node ./scripts/execute.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "cross-env APP_MODE=dev nest start",
     "start:dev": "cross-env APP_MODE=dev nest start --watch",

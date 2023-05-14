@@ -2,9 +2,9 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Injectable } from '@nestjs/common'
 import { CreateSocialDto } from './dto/create-social.dto'
 import { UpdateSocialDto } from './dto/update-social.dto'
-import { Social } from 'src/entities/social'
+import Social from '../../entities/social'
 import { Repository } from 'typeorm'
-import { encrypt } from 'src/utils/AESEncrypt'
+import { encrypt } from '../../utils/AESEncrypt'
 
 @Injectable()
 export class SocialService {

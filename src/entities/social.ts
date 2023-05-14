@@ -2,7 +2,7 @@ import BaseEntity from './base'
 import { Entity, Column } from 'typeorm'
 
 @Entity()
-export class Social extends BaseEntity {
+export default class Social extends BaseEntity {
   @Column({
     nullable: false,
     comment: '账户'

@@ -1,12 +1,9 @@
 import BaseEntity from './base'
-import { Entity, Column, ManyToOne } from 'typeorm'
-import { Chain } from './chain'
+import { Entity, Column } from 'typeorm'
+import Chain from './chain'
 
 @Entity()
-export class RpcNode extends BaseEntity {
-  @ManyToOne((type) => Chain, {
-    createForeignKeyConstraints: false
-  })
+export default class RpcNode extends BaseEntity {
   chain: Chain
 
   @Column({

@@ -3,7 +3,7 @@ import BaseEntity from './base'
 
 // 撸毛事件
 @Entity()
-export class Event extends BaseEntity {
+export default class Event extends BaseEntity {
   @Column({
     nullable: false,
     comment: '名称'

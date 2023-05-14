@@ -1,9 +1,9 @@
-import { TopicEnum } from 'src/constants/chains'
+import { TopicEnum } from '../constants/chains'
 import BaseEntity from './base'
 import { Entity, Column } from 'typeorm'
 
 @Entity()
-export class Chain extends BaseEntity {
+export default class Chain extends BaseEntity {
   @Column({
     nullable: false,
     unique: true,
@@ -14,13 +14,11 @@ export class Chain extends BaseEntity {
   topic: string
 
   @Column({
-    unique: true,
     comment: 'Chain ID'
   })
   chain_id: number
 
   @Column({
-    unique: true,
     comment: 'Hex Chain ID'
   })
   hex_chain_id: string
