@@ -2,6 +2,7 @@ import { ChainModule } from './chain/chain.module'
 import { EventModule } from './event/event.module'
 import { SocialModule } from './social/social.module'
 import { TwitterModule } from './twitter/twitter.module'
+import { UserModule } from './user/user.module'
 import { WalletModule } from './wallet/wallet.module'
 
 export default [
@@ -9,5 +10,6 @@ export default [
   ChainModule,
   SocialModule,
   EventModule,
-  TwitterModule
+  TwitterModule,
+  UserModule
 ]

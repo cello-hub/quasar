@@ -3,6 +3,7 @@ import { AppModule } from './app.module'
 import { ResponseInterceptor } from './interceptor/response'
 import { HttpExceptionFilter } from './filter/except'
 import { ENV_DEV } from './utils/env'
+import cookieParser from 'cookie-parser'
 
 const PORT = process.env.PORT || 8080
 
@@ -13,6 +14,7 @@ async function bootstrap() {
   app.enableCors()
   app.useGlobalInterceptors(new ResponseInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())
+  app.use(cookieParser())
 
   await app.listen(PORT)
 

@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from '../src/app.module'
 import { GetAccounts } from './command/account'
+import { CreateChains } from './command/create.chain'
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule)
@@ -10,7 +11,8 @@ async function bootstrap() {
 
   if (command === 'create') {
     await GetAccounts(app)
-  } else if (command === 'update') {
+  } else if (command === 'create-chain') {
+    await CreateChains(app)
   } else {
     process.exit(1)
   }

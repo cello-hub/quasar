@@ -30,7 +30,8 @@ if (ENV_DEV) {
           password: configService.get('MYSQL_PASSWORD'),
           database: configService.get('MYSQL_DATABASE'),
           synchronize: true,
-          autoLoadEntities: true
+          autoLoadEntities: true,
+          logging: ENV_DEV
         }
       },
       inject: [ConfigService]

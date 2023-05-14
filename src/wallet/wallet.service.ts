@@ -4,7 +4,7 @@ import { UpdateWalletDto } from './dto/update-wallet.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { ethers } from 'ethers'
-import { decrypt, encrypt } from 'src/utils/AESEncrypt'
+import { encrypt } from 'src/utils/AESEncrypt'
 
 @Injectable()
 export class WalletService {

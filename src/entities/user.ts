@@ -2,13 +2,13 @@ import BaseEntity from './base'
 import { Entity, Column } from 'typeorm'
 
 @Entity()
-export class Admin extends BaseEntity {
+export class User extends BaseEntity {
   @Column({
     nullable: false,
     unique: true,
     comment: '用户名'
   })
-  username: number
+  username: string
 
   @Column({
     nullable: false,

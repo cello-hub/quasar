@@ -46,3 +46,9 @@ deploy.sh
 ```
 127.0.0.1:3307
 ```
+
+## 执行脚本命令
+
+```
+pnpm run execute [command]
+```
