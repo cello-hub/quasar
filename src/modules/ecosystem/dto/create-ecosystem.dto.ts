@@ -1,4 +1,4 @@
-export class CreateEventDto {
+export class CreateEcosystemDto {
   name: string
   desc: string
   link: string

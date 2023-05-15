@@ -1,9 +1,10 @@
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 import BaseEntity from './base'
+import Chain from './chain'
 
-// 撸毛事件
+// 项目
 @Entity()
-export default class Event extends BaseEntity {
+export default class Ecosystem extends BaseEntity {
   @Column({
     nullable: false,
     comment: '名称'
@@ -15,6 +16,9 @@ export default class Event extends BaseEntity {
     comment: '描述'
   })
   desc: string
+
+  @ManyToOne(() => Chain)
+  chain: Chain
 
   @Column({
     nullable: true,

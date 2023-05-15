@@ -1,7 +1,7 @@
 import Balance from './entities/balance'
 import Chain from './entities/chain'
 import Couponer from './entities/couponer'
-import Event from './entities/event'
+import Ecosystem from './entities/ecosystem'
 import RpcNode from './entities/rpc-node'
 import Social from './entities/social'
 import Token from './entities/token'
@@ -13,7 +13,7 @@ export default [
   Chain,
   Couponer,
   Social,
-  Event,
+  Ecosystem,
   RpcNode,
   User,
   Token,
