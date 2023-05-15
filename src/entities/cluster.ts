@@ -4,4 +4,4 @@ import BaseEntity from './base'
 // 账号组
 
 @Entity()
-export default class Cluster extends BaseEntity {}
+export default class AccountCluster extends BaseEntity {}
