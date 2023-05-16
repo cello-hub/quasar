@@ -22,9 +22,21 @@ export default class Ecosystem extends BaseEntity {
 
   @Column({
     nullable: true,
-    comment: '链接'
+    comment: '官网链接'
   })
   link: string
+
+  @Column({
+    nullable: true,
+    comment: 'discord链接'
+  })
+  discord: string
+
+  @Column({
+    nullable: true,
+    comment: 'twitter链接'
+  })
+  twitter: string
 
   @Column({
     default: false,

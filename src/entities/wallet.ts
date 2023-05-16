@@ -10,8 +10,14 @@ export default class Wallet extends BaseEntity {
   })
   address: string
 
-  @ManyToOne(() => Chain, { nullable: false })
+  @ManyToOne(() => Chain, { nullable: true })
   chain: Chain
+
+  @Column({
+    default: true,
+    comment: '是否evm系钱包'
+  })
+  is_evm: boolean
 
   @Column({
     nullable: true,
