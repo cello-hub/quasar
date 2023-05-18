@@ -45,6 +45,7 @@ export default class Ecosystem extends BaseEntity {
   finished: boolean
 
   @Column({
+    nullable: true,
     comment: '备注'
   })
   remark: string

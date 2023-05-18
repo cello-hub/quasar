@@ -33,13 +33,13 @@ export class WalletController {
     }
   }
 
-  @Get('pk/:address')
-  async getPk(@Param('address') address: string) {
-    const wallet = await this.walletService.findOneByAddress(address)
+  @Get('secret/:id')
+  async getPk(@Param('id') id: number) {
+    const wallet = await this.walletService.findOneById(id)
 
     const secret = decrypt(wallet.secret)
     if (secret) {
-      return { secret }
+      return secret
     } else {
       return {
         code: 400,
@@ -53,7 +53,7 @@ export class WalletController {
     const list = await this.walletService.findAll()
     return list.map((wallet) => {
       wallet.amount = parseFloat(ethers.formatEther(wallet.amount)).toFixed(4)
-
+      delete wallet.secret
       return wallet
     })
   }
