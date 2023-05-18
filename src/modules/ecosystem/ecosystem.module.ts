@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common'
 import { EcosystemService } from './ecosystem.service'
 import { EcosystemController } from './ecosystem.controller'
 import { ChainService } from '../chain/chain.service'
-import Chain from 'src/entities/chain'
+import Chain from '../../entities/chain'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Ecosystem, Chain])],

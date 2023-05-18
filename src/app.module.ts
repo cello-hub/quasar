@@ -29,9 +29,9 @@ if (ENV_DEV) {
           username: configService.get('MYSQL_USER'),
           password: configService.get('MYSQL_PASSWORD'),
           database: configService.get('MYSQL_DATABASE'),
-          synchronize: ENV_DEV,
+          synchronize: true,
           autoLoadEntities: true,
-          logging: ENV_DEV
+          logging: true
         }
       },
       inject: [ConfigService]
