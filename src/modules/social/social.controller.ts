@@ -21,11 +21,10 @@ export class SocialController {
   @Get('password/:id')
   async findPassword(@Param('id') id: string) {
     const social = await this.socialService.findOneById(+id)
-
     const password = decrypt(social.password)
 
     if (password) {
-      return { password }
+      return password
     }
     return {
       code: 400
