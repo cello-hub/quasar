@@ -29,7 +29,7 @@ if (ENV_DEV) {
           username: configService.get('MYSQL_USER'),
           password: configService.get('MYSQL_PASSWORD'),
           database: configService.get('MYSQL_DATABASE'),
-          synchronize: true,
+          synchronize: ENV_DEV,
           autoLoadEntities: true,
           logging: true
         }

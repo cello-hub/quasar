@@ -16,8 +16,7 @@ export default class Social extends BaseEntity {
   password: string
 
   @Column({
-    type: 'enum',
-    enum: ['Google', 'Twitter', 'Facebook', 'Telegram', 'Discord'],
+    nullable: false,
     comment: '平台'
   })
   platform: string
