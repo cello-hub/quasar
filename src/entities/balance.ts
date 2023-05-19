@@ -20,9 +20,18 @@ export default class Balance extends BaseEntity {
 
   @Column({
     nullable: true,
+    type: 'simple-array',
     comment: 'erc721 tokenId'
+    // transformer: {
+    //   from: (value) => {
+    //     return '1'
+    //   },
+    //   to: () => {
+    //     return '1'
+    //   }
+    // }
   })
-  token_id: number
+  token_ids: string[]
 
   @Column({
     default: '0',
