@@ -32,6 +32,7 @@ export default class Token extends BaseEntity {
   decimal: number
 
   @Column({
+    nullable: false,
     comment: '类型 ERC20 ERC721'
   })
   type: string

@@ -38,8 +38,4 @@ export default class BaseEntity {
     comment: '更新时间'
   })
   updated_at: Date
-
-  get formattedCreatedAt() {
-    return '100'
-  }
 }
