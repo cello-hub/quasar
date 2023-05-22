@@ -22,4 +22,9 @@ export class BalanceService {
       }
     })
   }
+
+  // 同步余额
+  sync(address: string, chainId?: string, tokenId?: string) {
+    return this.repository.findAndCount()
+  }
 }

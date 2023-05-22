@@ -8,7 +8,7 @@ export default class Balance extends BaseEntity {
   @ManyToOne(() => Wallet)
   wallet: Wallet
 
-  @ManyToOne(() => Token)
+  @ManyToOne(() => Token, { nullable: true })
   @Index(['wallet', 'token'], { unique: true })
   token: Token
 
