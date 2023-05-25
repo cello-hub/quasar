@@ -3,12 +3,14 @@ import { Column, Entity, Index, ManyToOne } from 'typeorm'
 import Wallet from './wallet'
 import Token from './token'
 
+// 钱包余额表(仅token)
+
 @Entity()
 export default class Balance extends BaseEntity {
   @ManyToOne(() => Wallet)
   wallet: Wallet
 
-  @ManyToOne(() => Token, { nullable: true })
+  @ManyToOne(() => Token, { nullable: false })
   @Index(['wallet', 'token'], { unique: true })
   token: Token
 
@@ -22,14 +24,6 @@ export default class Balance extends BaseEntity {
     nullable: true,
     type: 'simple-array',
     comment: 'erc721 tokenId'
-    // transformer: {
-    //   from: (value) => {
-    //     return '1'
-    //   },
-    //   to: () => {
-    //     return '1'
-    //   }
-    // }
   })
   token_ids: string[]
 

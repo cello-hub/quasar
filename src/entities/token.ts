@@ -38,7 +38,7 @@ export default class Token extends BaseEntity {
   type: string
 
   @Column({
-    comment: '类型 ERC20 ERC721'
+    comment: 'token logo 链接'
   })
   logo: string
 }

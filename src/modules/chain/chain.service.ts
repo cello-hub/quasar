@@ -31,6 +31,12 @@ export class ChainService {
     return this.chainRepository.findOneBy({ id })
   }
 
+  findOneByChainId(chain_id: number) {
+    return this.chainRepository.findOneBy({
+      chain_id
+    })
+  }
+
   update(id: number, updateChainDto: UpdateChainDto) {
     return `This action updates a #${id} chain`
   }
