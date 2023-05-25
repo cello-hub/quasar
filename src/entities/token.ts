@@ -38,6 +38,7 @@ export default class Token extends BaseEntity {
   type: string
 
   @Column({
+    nullable: true,
     comment: 'token logo 链接'
   })
   logo: string

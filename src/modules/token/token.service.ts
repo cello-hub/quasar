@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { CreateTokenDto } from './dto/create-token.dto'
 import { UpdateTokenDto } from './dto/update-token.dto'
+import { omit } from 'lodash'
 
 @Injectable()
 export class TokenService {
@@ -32,8 +33,12 @@ export class TokenService {
     return this.repository.save(token)
   }
 
-  update(id: number, dto: UpdateTokenDto) {
-    return this.repository.update(id, dto)
+  async update(id: number, dto: UpdateTokenDto) {
+    const chain = await this.chainService.findOne(dto.chain_id)
+    return this.repository.update(id, {
+      ...omit(dto, ['chain_id']),
+      chain
+    })
   }
 
   remove(id: number) {
