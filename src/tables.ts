@@ -5,7 +5,6 @@ import Ecosystem from './entities/ecosystem'
 import RpcNode from './entities/rpc-node'
 import Social from './entities/social'
 import Token from './entities/token'
-import User from './entities/user'
 import Wallet from './entities/wallet'
 
 export default [
@@ -15,7 +14,6 @@ export default [
   Social,
   Ecosystem,
   RpcNode,
-  User,
   Token,
   Balance
 ]

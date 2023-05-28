@@ -15,14 +15,14 @@ export class ResponseInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => {
         const code = _.get(data, 'code', HttpStatus.OK)
-        delete data.code
+        data && data.code && delete data.code
 
         const message = _.get(
           data,
           'message',
           code === HttpStatus.OK ? 'OK' : 'Error'
         )
-        delete data.message
+        data && data.message && delete data.message
 
         return {
           code,

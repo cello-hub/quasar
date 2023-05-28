@@ -4,6 +4,7 @@ import { ResponseInterceptor } from './interceptor/response'
 import { HttpExceptionFilter } from './filter/except'
 import { ENV_DEV } from './utils/env'
 import cookieParser from 'cookie-parser'
+import { AuthGuard } from './modules/auth/auth.guard'
 
 const PORT = process.env.PORT || 8080
 
@@ -11,10 +12,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ENV_DEV ? ['log', 'debug', 'error', 'warn'] : ['error', 'warn']
   })
-  app.enableCors()
+  app.enableCors({
+    credentials: true,
+    origin: 'http://localhost:5173'
+  })
   app.useGlobalInterceptors(new ResponseInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())
   app.use(cookieParser())
+  app.useGlobalGuards(new AuthGuard())
 
   await app.listen(PORT)
 
