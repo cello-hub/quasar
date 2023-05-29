@@ -2,6 +2,7 @@ import { AuthModule } from './auth/auth.module'
 import { BalanceModule } from './balance/balance.module'
 import { ChainModule } from './chain/chain.module'
 import { EcosystemModule } from './ecosystem/ecosystem.module'
+import { ScheduleModule } from './schedule/schedule.module'
 import { SocialModule } from './social/social.module'
 import { TokenModule } from './token/token.module'
 import { TwitterModule } from './twitter/twitter.module'
@@ -15,5 +16,6 @@ export default [
   TwitterModule,
   TokenModule,
   BalanceModule,
-  AuthModule
+  AuthModule,
+  ScheduleModule
 ]

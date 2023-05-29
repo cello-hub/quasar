@@ -37,8 +37,10 @@ AES_KEY=
 
 ## docker 部署
 
-```
-deploy.sh
+安装完 docker 后, 运行项目根目录下 `deploy.sh`
+
+```shell
+./deploy.sh
 ```
 
 ## 客户端访问 mysql 容器
@@ -52,3 +54,8 @@ deploy.sh
 ```
 pnpm run execute [command]
 ```
+
+## 特性
+
+- [x] 钱包登录
+- [] 定时任务-数据库每日备份

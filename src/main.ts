@@ -14,7 +14,7 @@ async function bootstrap() {
   })
   app.enableCors({
     credentials: true,
-    origin: 'http://localhost:5173'
+    origin: 'http://127.0.0.1:5173'
   })
   app.useGlobalInterceptors(new ResponseInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())

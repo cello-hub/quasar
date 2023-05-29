@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { ENV_DEV, ENV_PROD } from './utils/env'
 import modules from './modules'
 import tables from './tables'
-
+import { ScheduleModule } from '@nestjs/schedule'
 const envFilePath = ['.env']
 if (ENV_DEV) {
   envFilePath.unshift('.env.dev')
@@ -14,6 +14,7 @@ if (ENV_DEV) {
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
