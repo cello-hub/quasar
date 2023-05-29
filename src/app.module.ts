@@ -5,6 +5,7 @@ import { ENV_DEV, ENV_PROD } from './utils/env'
 import modules from './modules'
 import tables from './tables'
 import { ScheduleModule } from '@nestjs/schedule'
+
 const envFilePath = ['.env']
 if (ENV_DEV) {
   envFilePath.unshift('.env.dev')
