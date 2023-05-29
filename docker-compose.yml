@@ -23,6 +23,8 @@ services:
     restart: unless-stopped
     environment:
       - MYSQL_HOST=mysql
+    volumes:
+      - ${MYSQL_LOCAL_BACKUP_PATH}:/app/mysql-backup
     networks:
       - mysql_bridge
     depends_on:

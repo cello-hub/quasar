@@ -1,4 +1,5 @@
-import dayjs from 'dayjs'
+import dayjs from '../utils/dayjs'
+
 import {
   CreateDateColumn,
   UpdateDateColumn,

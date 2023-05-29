@@ -17,6 +17,7 @@ lerna-debug.log*
 # OS
 .DS_Store
 mysql
+mysql-backup
 
 # Tests
 /coverage
