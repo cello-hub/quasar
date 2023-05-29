@@ -7,14 +7,14 @@ import cookieParser from 'cookie-parser'
 import { AuthGuard } from './modules/auth/auth.guard'
 
 const PORT = process.env.PORT || 8080
-
+const INTERFACE_PORT = ENV_DEV ? 5173 : 8088
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ENV_DEV ? ['log', 'debug', 'error', 'warn'] : ['error', 'warn']
   })
   app.enableCors({
-    credentials: true,
-    origin: 'http://127.0.0.1:5173'
+    origin: `http://localhost:${INTERFACE_PORT}`,
+    credentials: true
   })
   app.useGlobalInterceptors(new ResponseInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())

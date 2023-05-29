@@ -2,6 +2,7 @@ import Balance from './entities/balance'
 import Chain from './entities/chain'
 import Couponer from './entities/couponer'
 import Ecosystem from './entities/ecosystem'
+import Mnemonic from './entities/mnemonic'
 import RpcNode from './entities/rpc-node'
 import Social from './entities/social'
 import Token from './entities/token'
@@ -15,5 +16,6 @@ export default [
   Ecosystem,
   RpcNode,
   Token,
-  Balance
+  Balance,
+  Mnemonic
 ]

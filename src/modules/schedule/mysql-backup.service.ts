@@ -15,7 +15,7 @@ export class MysqlBackupService {
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DATABASE
       },
-      dumpToFile: `./${
+      dumpToFile: `${
         process.env.MYSQL_LOCAL_BACKUP_PATH
       }/quasar.${dayjs().format('YYYY-MM-DD')}.sql`
     })
