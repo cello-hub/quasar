@@ -1,4 +1,5 @@
 export enum TopicEnum {
+  BTC = 'BTC',
   Ethereum = 'Ethereum',
   Binance = 'Binance',
   Polygon = 'Polygon',
@@ -12,6 +13,13 @@ export enum TopicEnum {
 }
 
 export default [
+  {
+    topic: TopicEnum.BTC,
+    chain_id: 0,
+    hex_chain_id: '0x0',
+    symbol: 'BTC',
+    explorer: ''
+  },
   {
     topic: TopicEnum.Ethereum,
     chain_id: 1,

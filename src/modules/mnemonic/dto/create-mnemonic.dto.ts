@@ -1,1 +1,4 @@
-export class CreateMnemonicDto {}
+export class CreateMnemonicDto {
+  chain_id: number
+  phrase: string
+}
