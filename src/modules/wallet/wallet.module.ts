@@ -5,6 +5,7 @@ import { WalletController } from './wallet.controller'
 import Wallet from '../../entities/wallet'
 import { ChainService } from '../chain/chain.service'
 import Chain from '../../entities/chain'
+import Mnemonic from '../../entities/mnemonic'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Wallet, Chain])],

@@ -3,9 +3,11 @@ import { Injectable } from '@nestjs/common'
 import { UpdateWalletDto } from './dto/update-wallet.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { ethers } from 'ethers'
-import { encrypt } from '../../utils/AESEncrypt'
+import { ethers, getIndexedAccountPath } from 'ethers'
+import { decrypt, encrypt } from '../../utils/AESEncrypt'
 import { ChainService } from '../chain/chain.service'
+import Chain from '../../entities/chain'
+import Mnemonic from '../../entities/mnemonic'
 
 @Injectable()
 export class WalletService {
@@ -17,6 +19,7 @@ export class WalletService {
 
   async create() {
     const randomWallet = ethers.Wallet.createRandom()
+
     const wallet = new Wallet()
     wallet.address = randomWallet.address
     wallet.secret = encrypt(randomWallet.privateKey)
@@ -26,6 +29,28 @@ export class WalletService {
 
     const savedWallet = await this.repository.save(wallet)
 
+    savedWallet.alias = `wallet_${savedWallet.id}`
+    return await this.repository.save(savedWallet)
+  }
+
+  async createByMnemonic(mnemonic: Mnemonic, index: number, chain?: Chain) {
+    const HDWallet = ethers.HDNodeWallet.fromPhrase(
+      decrypt(mnemonic.phrase),
+      '',
+      getIndexedAccountPath(index)
+    )
+    const wallet = new Wallet()
+    wallet.address = HDWallet.address
+    wallet.secret = encrypt(HDWallet.privateKey)
+    wallet.mnemonic = mnemonic
+
+    if (chain) {
+      wallet.chain = chain
+    } else {
+      const chain = await this.chainService.findOne(1)
+      wallet.chain = chain
+    }
+    const savedWallet = await this.repository.save(wallet)
     savedWallet.alias = `wallet_${savedWallet.id}`
     return await this.repository.save(savedWallet)
   }
@@ -41,7 +66,7 @@ export class WalletService {
       order: {
         created_at: 'DESC'
       },
-      relations: ['chain']
+      relations: ['chain', 'mnemonic']
     })
   }
 

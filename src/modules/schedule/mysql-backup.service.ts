@@ -5,7 +5,7 @@ import dayjs from '../../utils/dayjs'
 
 @Injectable()
 export class MysqlBackupService {
-  @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  @Cron(CronExpression.EVERY_12_HOURS)
   backup() {
     mysqldump({
       connection: {
@@ -17,7 +17,7 @@ export class MysqlBackupService {
       },
       dumpToFile: `${
         process.env.MYSQL_LOCAL_BACKUP_PATH
-      }/quasar.${dayjs().format('YYYY-MM-DD')}.sql`
+      }/quasar.${dayjs().format('YYYY_MM_DD-HH_mm_ss')}.sql`
     })
   }
 }

@@ -6,6 +6,7 @@ import { CreateMnemonicDto } from './dto/create-mnemonic.dto'
 import { UpdateMnemonicDto } from './dto/update-mnemonic.dto'
 import { Repository } from 'typeorm'
 import { ethers } from 'ethers'
+import { decrypt, encrypt } from '../../utils/AESEncrypt'
 
 @Injectable()
 export class MnemonicService {
@@ -20,9 +21,11 @@ export class MnemonicService {
 
     const mnemonic = new Mnemonic()
     if (phrase) {
-      mnemonic.phrase = phrase
+      mnemonic.phrase = encrypt(phrase)
     } else {
-      mnemonic.phrase = ethers.HDNodeWallet.createRandom().mnemonic.phrase
+      mnemonic.phrase = encrypt(
+        ethers.HDNodeWallet.createRandom().mnemonic.phrase
+      )
     }
 
     mnemonic.chain = await this.chainService.findOne(createMnemonicDto.chain_id)
@@ -31,7 +34,16 @@ export class MnemonicService {
   }
 
   findAll() {
-    return this.repository.find()
+    return this.repository
+      .find({
+        relations: ['chain']
+      })
+      .then((mnemonics) => {
+        return mnemonics.map((mnemonic) => {
+          mnemonic.phrase = decrypt(mnemonic.phrase)
+          return mnemonic
+        })
+      })
   }
 
   findOne(id: number) {

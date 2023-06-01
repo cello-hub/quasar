@@ -1,6 +1,7 @@
 import BaseEntity from './base'
 import { Entity, Column, ManyToOne } from 'typeorm'
 import Chain from './chain'
+import Mnemonic from './mnemonic'
 @Entity()
 export default class Wallet extends BaseEntity {
   @Column({
@@ -18,6 +19,9 @@ export default class Wallet extends BaseEntity {
     comment: '是否evm系钱包'
   })
   is_evm: boolean
+
+  @ManyToOne(() => Mnemonic, { nullable: true })
+  mnemonic: Mnemonic
 
   @Column({
     nullable: true,
