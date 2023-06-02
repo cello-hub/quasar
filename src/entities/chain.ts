@@ -29,6 +29,12 @@ export default class Chain extends BaseEntity {
   symbol: string
 
   @Column({
+    default: false,
+    comment: 'evm兼容'
+  })
+  evm: boolean
+
+  @Column({
     comment: '区块浏览器链接'
   })
   explorer: string

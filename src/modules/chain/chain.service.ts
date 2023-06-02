@@ -19,6 +19,7 @@ export class ChainService {
     chain.hex_chain_id = createChainDto.hex_chain_id
     chain.symbol = createChainDto.symbol
     chain.explorer = createChainDto.explorer
+    chain.evm = createChainDto.evm
 
     return await this.chainRepository.save(chain)
   }

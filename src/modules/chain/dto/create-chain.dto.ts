@@ -4,4 +4,5 @@ export class CreateChainDto {
   hex_chain_id: string
   symbol: string
   explorer: string
+  evm: boolean
 }

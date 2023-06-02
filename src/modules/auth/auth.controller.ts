@@ -16,14 +16,12 @@ export class AuthController {
   async login(@Body() body, @Res() res) {
     const { address, message, signedMessage } = body
 
+    if (address !== process.env.LOGINABLE_ADDRESS) {
+      return res.status(401).send('Unauthorized')
+    }
+
     const validAddress = await ethers.verifyMessage(message, signedMessage)
-
-    if (
-      validAddress === address &&
-      address === '0xB483169fb514727AA8CC68fFcf8E43c254F83cD2'
-    ) {
-      console.log(body)
-
+    if (validAddress === address && address === process.env.LOGINABLE_ADDRESS) {
       const access_token = await this.jwtService.signAsync(body)
 
       res

@@ -19,16 +19,26 @@ export class MnemonicService {
   async create(createMnemonicDto: CreateMnemonicDto) {
     const { phrase } = createMnemonicDto
 
+    const chain = await this.chainService.findOne(createMnemonicDto.chain_id)
+
     const mnemonic = new Mnemonic()
     if (phrase) {
       mnemonic.phrase = encrypt(phrase)
     } else {
-      mnemonic.phrase = encrypt(
-        ethers.HDNodeWallet.createRandom().mnemonic.phrase
-      )
-    }
+      console.log(chain.evm)
 
-    mnemonic.chain = await this.chainService.findOne(createMnemonicDto.chain_id)
+      if (chain.evm) {
+        mnemonic.phrase = encrypt(
+          ethers.HDNodeWallet.createRandom().mnemonic.phrase
+        )
+      } else {
+        return {
+          code: 0,
+          message: 'Only support evm mnemonic'
+        }
+      }
+    }
+    mnemonic.chain = chain
 
     return this.repository.save(mnemonic)
   }
