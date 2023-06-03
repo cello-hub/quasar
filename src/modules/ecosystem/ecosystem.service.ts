@@ -43,7 +43,10 @@ export class EcosystemService {
 
   async update(id: number, updateEcosystemDto: UpdateEcosystemDto) {
     const eco = await this.findOne(id)
-    eco.chain = await this.chainService.findOne(updateEcosystemDto.chain_id)
+    if (updateEcosystemDto.chain_id) {
+      eco.chain = await this.chainService.findOne(updateEcosystemDto.chain_id)
+    }
+
     Object.assign(eco, updateEcosystemDto)
     return this.repository.save(eco)
   }
