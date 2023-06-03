@@ -33,6 +33,7 @@ export class WalletService {
     return await this.repository.save(savedWallet)
   }
 
+  // 根据助记词创建钱包
   async createByMnemonic(mnemonic: Mnemonic, index: number, chain?: Chain) {
     const HDWallet = ethers.HDNodeWallet.fromPhrase(
       decrypt(mnemonic.phrase),
@@ -47,8 +48,7 @@ export class WalletService {
     if (chain) {
       wallet.chain = chain
     } else {
-      const chain = await this.chainService.findOne(1)
-      wallet.chain = chain
+      wallet.chain = mnemonic.chain
     }
     const savedWallet = await this.repository.save(wallet)
     savedWallet.alias = `wallet_${savedWallet.id}`
@@ -76,6 +76,16 @@ export class WalletService {
 
   findOneByAddress(address: string) {
     return this.repository.findOneBy({ address })
+  }
+
+  findCountByMnemonic(mnemonic: Mnemonic) {
+    console.log(mnemonic.id)
+
+    return this.repository
+      .createQueryBuilder('wallet')
+      .leftJoinAndSelect('wallet.mnemonic', 'mnemonic')
+      .where('mnemonic.id=:id', { id: mnemonic.id })
+      .getCount()
   }
 
   updateById(id: number, updateWalletDto: UpdateWalletDto) {

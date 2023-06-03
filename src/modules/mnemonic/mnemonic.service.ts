@@ -25,18 +25,9 @@ export class MnemonicService {
     if (phrase) {
       mnemonic.phrase = encrypt(phrase)
     } else {
-      console.log(chain.evm)
-
-      if (chain.evm) {
-        mnemonic.phrase = encrypt(
-          ethers.HDNodeWallet.createRandom().mnemonic.phrase
-        )
-      } else {
-        return {
-          code: 0,
-          message: 'Only support evm mnemonic'
-        }
-      }
+      mnemonic.phrase = encrypt(
+        ethers.HDNodeWallet.createRandom().mnemonic.phrase
+      )
     }
     mnemonic.chain = chain
 
@@ -56,8 +47,13 @@ export class MnemonicService {
       })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mnemonic`
+  findOneById(id: number) {
+    return this.repository.findOne({
+      where: {
+        id
+      },
+      relations: ['chain']
+    })
   }
 
   update(id: number, updateMnemonicDto: UpdateMnemonicDto) {

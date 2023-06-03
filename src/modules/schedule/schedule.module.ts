@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { MysqlBackupService } from './mysql-backup.service'
-import { ENV_PROD } from 'src/utils/env'
+import { ENV_PROD } from '../../utils/env'
 
 // 生产环境启动的定时任务
 const PROD_TASK_SERVICES = [MysqlBackupService]

@@ -24,7 +24,9 @@ export class EcosystemService {
     eco.finished = createEcosystemDto.finished
     eco.remark = createEcosystemDto.remark
 
-    eco.chain = await this.chainService.findOne(createEcosystemDto.chain_id)
+    if (createEcosystemDto.chain_id) {
+      eco.chain = await this.chainService.findOne(createEcosystemDto.chain_id)
+    }
 
     return this.repository.save(eco)
   }
@@ -39,11 +41,11 @@ export class EcosystemService {
     return this.repository.findOneBy({ id })
   }
 
-  update(id: number, updateEcosystemDto: UpdateEcosystemDto) {
-    return this.repository.update(id, {
-      ...updateEcosystemDto,
-      finished: !!updateEcosystemDto.finished
-    })
+  async update(id: number, updateEcosystemDto: UpdateEcosystemDto) {
+    const eco = await this.findOne(id)
+    eco.chain = await this.chainService.findOne(updateEcosystemDto.chain_id)
+    Object.assign(eco, updateEcosystemDto)
+    return this.repository.save(eco)
   }
 
   remove(id: number) {

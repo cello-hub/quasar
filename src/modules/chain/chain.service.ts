@@ -29,7 +29,7 @@ export class ChainService {
   }
 
   findOne(id: number) {
-    return this.chainRepository.findOneBy({ id })
+    return this.chainRepository.findOneBy({ id: id })
   }
 
   findOneByChainId(chain_id: number) {
