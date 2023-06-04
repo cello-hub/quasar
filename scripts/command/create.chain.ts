@@ -6,6 +6,6 @@ export const CreateChains = async (app: INestApplicationContext) => {
   const service = app.get(ChainService)
 
   for (let i = 0; i < chains.length; i++) {
-    await service.create(chains[i])
+    await service.save(chains[i])
   }
 }

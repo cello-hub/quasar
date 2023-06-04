@@ -1,4 +1,3 @@
-import { TopicEnum } from '../constants/chains'
 import BaseEntity from './base'
 import { Entity, Column } from 'typeorm'
 
@@ -7,8 +6,6 @@ export default class Chain extends BaseEntity {
   @Column({
     nullable: false,
     unique: true,
-    type: 'enum',
-    enum: TopicEnum,
     comment: '公链名称'
   })
   topic: string
@@ -35,6 +32,13 @@ export default class Chain extends BaseEntity {
   evm: boolean
 
   @Column({
+    default: false,
+    comment: '测试网'
+  })
+  testnet: boolean
+
+  @Column({
+    nullable: true,
     comment: '区块浏览器链接'
   })
   explorer: string

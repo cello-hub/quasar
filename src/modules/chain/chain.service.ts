@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { CreateChainDto } from './dto/create-chain.dto'
-import { UpdateChainDto } from './dto/update-chain.dto'
+import { SaveChainDto } from './dto/save-chain.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import Chain from '../../entities/chain'
@@ -12,16 +11,21 @@ export class ChainService {
     private readonly chainRepository: Repository<Chain>
   ) {}
 
-  async create(createChainDto: CreateChainDto) {
-    const chain = new Chain()
-    chain.topic = createChainDto.topic
-    chain.chain_id = createChainDto.chain_id
-    chain.hex_chain_id = createChainDto.hex_chain_id
-    chain.symbol = createChainDto.symbol
-    chain.explorer = createChainDto.explorer
-    chain.evm = createChainDto.evm
+  async save(saveChainDto: SaveChainDto) {
+    const chainId = saveChainDto.chain_id || 0
+    const hex_chain_id = `0x${Number(chainId).toString(16)}`
 
-    return await this.chainRepository.save(chain)
+    if (saveChainDto.id) {
+      return this.chainRepository.update(saveChainDto.id, {
+        ...saveChainDto,
+        hex_chain_id: hex_chain_id
+      })
+    } else {
+      return this.chainRepository.save({
+        ...saveChainDto,
+        hex_chain_id: hex_chain_id
+      })
+    }
   }
 
   findAll() {
@@ -36,13 +40,5 @@ export class ChainService {
     return this.chainRepository.findOneBy({
       chain_id
     })
-  }
-
-  update(id: number, updateChainDto: UpdateChainDto) {
-    return `This action updates a #${id} chain`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} chain`
   }
 }
