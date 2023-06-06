@@ -41,11 +41,9 @@ export class MnemonicController {
     const mnemonic = await this.mnemonicService.findOneById(mnemonicId)
 
     const count = await this.walletService.findCountByMnemonic(mnemonic)
-    console.log('count=' + count)
-    this.walletService.createByMnemonic(mnemonic, count)
+    await this.walletService.createByMnemonic(mnemonic, count)
 
-    // const mnemonic = await this.mnemonicService.create(createMnemonicDto)
-    // return await this.walletService.createByMnemonic(mnemonic, 0)
+    return null
   }
 
   @Get()

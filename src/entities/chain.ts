@@ -26,6 +26,12 @@ export default class Chain extends BaseEntity {
   symbol: string
 
   @Column({
+    nullable: true,
+    comment: 'rpc 阶段'
+  })
+  rpc_url: string
+
+  @Column({
     default: false,
     comment: 'evm兼容'
   })

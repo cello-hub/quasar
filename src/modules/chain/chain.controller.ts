@@ -20,6 +20,11 @@ export class ChainController {
     return {}
   }
 
+  @Post('set_rpc')
+  setRpc(@Body('chainId') chainId: number, @Body('url') url: string) {
+    return this.chainService.setRpc(chainId, url)
+  }
+
   @Get()
   findAll() {
     return this.chainService.findAll()

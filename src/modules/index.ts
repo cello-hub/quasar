@@ -1,3 +1,4 @@
+import { RpcNodeModule } from './rpc-node/rpc-node.module'
 import { AuthModule } from './auth/auth.module'
 import { BalanceModule } from './balance/balance.module'
 import { ChainModule } from './chain/chain.module'
@@ -19,5 +20,6 @@ export default [
   BalanceModule,
   AuthModule,
   ScheduleModule,
-  MnemonicModule
+  MnemonicModule,
+  RpcNodeModule
 ]

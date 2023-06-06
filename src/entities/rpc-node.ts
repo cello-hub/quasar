@@ -1,22 +1,17 @@
 import BaseEntity from './base'
-import { Entity, Column } from 'typeorm'
+import { Entity, Column, ManyToOne } from 'typeorm'
 import Chain from './chain'
 
 @Entity()
 export default class RpcNode extends BaseEntity {
+  @ManyToOne(() => Chain, { nullable: false })
   chain: Chain
 
   @Column({
-    nullable: false,
-    comment: '公链主网或测试网名称, Mainnet / Testnet'
+    nullable: true,
+    comment: '公链主网或测试网名称'
   })
   name: string
-
-  @Column({
-    default: false,
-    comment: '是否为测试网'
-  })
-  is_mainnet: boolean
 
   @Column({
     comment: 'rpc节点地址'

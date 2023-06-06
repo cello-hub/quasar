@@ -36,9 +36,11 @@ export class ChainService {
     return this.chainRepository.findOneBy({ id: id })
   }
 
-  findOneByChainId(chain_id: number) {
-    return this.chainRepository.findOneBy({
-      chain_id
+  async setRpc(chainId: number, url: string) {
+    await this.chainRepository.update(chainId, {
+      rpc_url: url
     })
+
+    return {}
   }
 }
