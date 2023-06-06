@@ -61,8 +61,6 @@ export class MnemonicController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    console.log(id)
-
     return this.mnemonicService.remove(+id)
   }
 }

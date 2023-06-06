@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import RpcNode from '../../entities/rpc-node'
 import { Repository } from 'typeorm'
-import { CreateRpcNodeDto } from './dto/create-rpc-node.dto'
+import { SaveRpcNodeDto } from './dto/save-rpc-node.dto'
 import { ChainService } from '../chain/chain.service'
 
 @Injectable()
@@ -20,19 +20,23 @@ export class RpcNodeService {
       .getMany()
   }
 
-  async create(dto: CreateRpcNodeDto) {
-    console.log(dto)
+  async save(dto: SaveRpcNodeDto) {
+    const { id, chainId, name, url } = dto
 
-    const { chainId, name, url } = dto
+    if (id) {
+      await this.repository.update(id, {
+        name: name,
+        rpc_url: url
+      })
+    } else {
+      const node = new RpcNode()
+      const chain = await this.chainService.findOne(chainId)
+      node.chain = chain
+      node.name = name || `${chain.topic}_rpc`
+      node.rpc_url = url
+      this.repository.save(node)
+    }
 
-    const chain = await this.chainService.findOne(chainId)
-    console.log(chain)
-
-    const node = new RpcNode()
-    node.chain = chain
-    node.name = name
-    node.rpc_url = url
-
-    return this.repository.save(node)
+    return {}
   }
 }

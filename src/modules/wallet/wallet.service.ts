@@ -79,8 +79,6 @@ export class WalletService {
   }
 
   findCountByMnemonic(mnemonic: Mnemonic) {
-    console.log(mnemonic.id)
-
     return this.repository
       .createQueryBuilder('wallet')
       .leftJoinAndSelect('wallet.mnemonic', 'mnemonic')

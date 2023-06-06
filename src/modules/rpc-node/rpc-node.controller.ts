@@ -1,4 +1,4 @@
-import { CreateRpcNodeDto } from './dto/create-rpc-node.dto'
+import { SaveRpcNodeDto } from './dto/save-rpc-node.dto'
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'
 import { RpcNodeService } from './rpc-node.service'
 
@@ -12,7 +12,7 @@ export class RpcNodeController {
   }
 
   @Post()
-  create(@Body() dto: CreateRpcNodeDto) {
-    this.rpcNodeService.create(dto)
+  save(@Body() dto: SaveRpcNodeDto) {
+    return this.rpcNodeService.save(dto)
   }
 }

@@ -15,8 +15,6 @@ export class TwitterService {
     )
 
     const user = await client.v2.userByUsername('gwanbit')
-    console.log(user)
-
     return `This action returns all twitter`
   }
 
