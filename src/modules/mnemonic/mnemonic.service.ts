@@ -30,6 +30,7 @@ export class MnemonicService {
       )
     }
     mnemonic.chain = chain
+    mnemonic.remark = createMnemonicDto.remark
 
     return this.repository.save(mnemonic)
   }

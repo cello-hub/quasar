@@ -14,4 +14,10 @@ export default class Mnemonic extends BaseEntity {
 
   @ManyToOne(() => Chain, { nullable: false })
   chain: Chain
+
+  @Column({
+    nullable: true,
+    comment: '备注'
+  })
+  remark: string
 }
