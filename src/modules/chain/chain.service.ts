@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { SaveChainDto } from './dto/save-chain.dto'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { FindOptionsWhere, Repository } from 'typeorm'
 import Chain from '../../entities/chain'
 
 @Injectable()
@@ -42,5 +42,9 @@ export class ChainService {
     })
 
     return {}
+  }
+
+  findOneBy(condition: FindOptionsWhere<Chain>) {
+    return this.chainRepository.findOneBy(condition)
   }
 }

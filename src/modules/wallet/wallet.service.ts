@@ -8,6 +8,7 @@ import { decrypt, encrypt } from '../../utils/AESEncrypt'
 import { ChainService } from '../chain/chain.service'
 import Chain from '../../entities/chain'
 import Mnemonic from '../../entities/mnemonic'
+import { CreateWalletDto } from './dto/create-wallet.dto'
 
 @Injectable()
 export class WalletService {
@@ -17,6 +18,7 @@ export class WalletService {
     private readonly chainService: ChainService
   ) {}
 
+  // 手动创建默认为 eth 钱包
   async create() {
     const randomWallet = ethers.Wallet.createRandom()
 
@@ -24,13 +26,36 @@ export class WalletService {
     wallet.address = randomWallet.address
     wallet.secret = encrypt(randomWallet.privateKey)
 
-    const chain = await this.chainService.findOne(1)
+    const chain: Chain = await this.chainService.findOneBy({
+      topic: 'Ethereum'
+    })
     wallet.chain = chain
 
     const savedWallet = await this.repository.save(wallet)
 
     savedWallet.alias = `wallet_${savedWallet.id}`
     return await this.repository.save(savedWallet)
+  }
+
+  async createByManual(dto: CreateWalletDto) {
+    console.log(dto)
+    const wallet = new Wallet()
+    wallet.address = dto.address
+    wallet.secret = dto.secret
+    wallet.available = dto.available
+    const chain: Chain = await this.chainService.findOneBy({
+      id: dto.chainId
+    })
+    wallet.chain = chain
+
+    if (dto.alias) {
+      wallet.alias = dto.alias
+      return this.repository.save(wallet)
+    } else {
+      const savedWallet = await this.repository.save(wallet)
+      savedWallet.alias = `wallet_${savedWallet.id}`
+      return this.repository.save(savedWallet)
+    }
   }
 
   // 根据助记词创建钱包

@@ -3,6 +3,7 @@ import { WalletService } from './wallet.service'
 import { UpdateWalletDto } from './dto/update-wallet.dto'
 import { decrypt } from '../../utils/AESEncrypt'
 import { ethers } from 'ethers'
+import { CreateWalletDto } from './dto/create-wallet.dto'
 
 @Controller('wallet')
 export class WalletController {
@@ -13,12 +14,17 @@ export class WalletController {
     return this.walletService.create()
   }
 
+  @Post('manual')
+  createByManual(@Body() dto: CreateWalletDto) {
+    return this.walletService.createByManual(dto)
+  }
+
   @Put('balance/:address')
   updateBalance(
     @Param('address') address: string,
     @Body('balance') balance: string
   ) {
-    this.walletService.updateBalance(address, balance)
+    return this.walletService.updateBalance(address, balance)
   }
 
   @Put(':id')
@@ -52,7 +58,7 @@ export class WalletController {
   async findAll() {
     const list = await this.walletService.findAll()
     return list.map((wallet) => {
-      wallet.amount = parseFloat(ethers.formatEther(wallet.amount)).toFixed(4)
+      wallet.amount = parseFloat(ethers.formatEther(wallet.amount)).toString()
       delete wallet.secret
       return wallet
     })
