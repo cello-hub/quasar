@@ -3,6 +3,7 @@ import { SaveChainDto } from './dto/save-chain.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindOptionsWhere, Repository } from 'typeorm'
 import Chain from '../../entities/chain'
+import { TokenService } from '../token/token.service'
 
 @Injectable()
 export class ChainService {
@@ -12,16 +13,21 @@ export class ChainService {
   ) {}
 
   async save(saveChainDto: SaveChainDto) {
+    console.log('id=' + saveChainDto.id)
+
     const chainId = saveChainDto.chain_id || 0
     const hex_chain_id = `0x${Number(chainId).toString(16)}`
 
     if (saveChainDto.id) {
-      return this.chainRepository.update(saveChainDto.id, {
-        ...saveChainDto,
-        hex_chain_id: hex_chain_id
+      let chain = await this.chainRepository.findOneBy({
+        id: saveChainDto.id
       })
+      chain = Object.assign(chain, saveChainDto)
+      // 更新
+      return await this.chainRepository.save(chain)
     } else {
-      return this.chainRepository.save({
+      // 新增
+      return await this.chainRepository.save({
         ...saveChainDto,
         hex_chain_id: hex_chain_id
       })

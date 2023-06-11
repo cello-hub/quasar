@@ -11,11 +11,13 @@ export default class Chain extends BaseEntity {
   topic: string
 
   @Column({
+    default: '0',
     comment: 'Chain ID'
   })
   chain_id: number
 
   @Column({
+    default: '0x0',
     comment: 'Hex Chain ID'
   })
   hex_chain_id: string

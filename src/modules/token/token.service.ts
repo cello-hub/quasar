@@ -2,7 +2,7 @@ import { ChainService } from './../chain/chain.service'
 import Token from '../../entities/token'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Repository, FindOptionsWhere } from 'typeorm'
 import { CreateTokenDto } from './dto/create-token.dto'
 import { UpdateTokenDto } from './dto/update-token.dto'
 import { omit } from 'lodash'
@@ -19,6 +19,10 @@ export class TokenService {
     return this.repository.find({
       relations: ['chain']
     })
+  }
+
+  findOne(id: number) {
+    return this.repository.findOneBy({ id: id })
   }
 
   async create(dto: CreateTokenDto) {
@@ -43,5 +47,16 @@ export class TokenService {
 
   remove(id: number) {
     return `This action removes a #${id} event`
+  }
+
+  findOneBy(condition: Partial<Token>) {
+    return this.repository
+      .createQueryBuilder('token')
+      .leftJoinAndSelect('token.chain', 'chain')
+      .where('chain.id=:id', { id: condition.chain.id })
+      .andWhere({
+        ...condition
+      })
+      .getOne()
   }
 }

@@ -10,21 +10,12 @@ export class BalanceService {
     private readonly repository: Repository<Balance>
   ) {}
 
-  findAll() {
-    return this.repository.find({
-      relations: ['wallet', 'token'],
-      select: {
-        wallet: {
-          id: true,
-          address: true,
-          alias: true
-        }
-      }
-    })
-  }
-
   // 同步余额
   sync(address: string, chainId?: string, tokenId?: string) {
     return this.repository.findAndCount()
+  }
+
+  async save(dto) {
+    return this.repository.save(dto)
   }
 }

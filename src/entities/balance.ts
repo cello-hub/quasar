@@ -1,17 +1,20 @@
 import BaseEntity from './base'
 import { Column, Entity, Index, ManyToOne } from 'typeorm'
-import Wallet from './wallet'
 import Token from './token'
 
 // 钱包余额表(仅token)
 
 @Entity()
 export default class Balance extends BaseEntity {
-  @ManyToOne(() => Wallet)
-  wallet: Wallet
+  @Column({
+    nullable: false,
+    comment: '钱包地址'
+  })
+  address: string
 
-  @ManyToOne(() => Token, { nullable: false })
-  @Index(['wallet', 'token'], { unique: true })
+  // 对于公链币也会有一天记录，其地址会是0x0
+  @ManyToOne(() => Token, { nullable: true })
+  @Index(['address', 'token'], { unique: true })
   token: Token
 
   @Column({
