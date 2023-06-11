@@ -4,6 +4,12 @@ import { Entity, Column } from 'typeorm'
 @Entity()
 export default class Social extends BaseEntity {
   @Column({
+    nullable: true,
+    comment: '账号别名'
+  })
+  alias: string
+
+  @Column({
     nullable: false,
     comment: '账户'
   })
