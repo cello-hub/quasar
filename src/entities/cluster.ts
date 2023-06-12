@@ -41,10 +41,4 @@ export default class Cluster extends BaseEntity {
     comment: 'sui 助记词'
   })
   sui_mnemonic: string
-
-  @Column({
-    nullable: true,
-    comment: 'sui 助记词'
-  })
-  btc_mnemonic: string
 }

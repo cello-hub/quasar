@@ -57,15 +57,22 @@ export class MnemonicService {
     })
   }
 
-  update(id: number, updateMnemonicDto: UpdateMnemonicDto) {
-    return `This action updates a #${id} mnemonic`
-  }
-
   remove(id: number) {
     return this.repository.delete(id)
   }
 
   findOneByCondition(condition) {
+    if (condition.chainId) {
+      const { chainId, ...rest } = condition
+      console.log(chainId)
+
+      return this.repository
+        .createQueryBuilder('mnemonic')
+        .leftJoinAndSelect('mnemonic.chain', 'chain')
+        .where('chain.id=:chainId', { chainId: chainId })
+        .andWhere(rest)
+        .getOne()
+    }
     return this.repository.findOneBy(condition)
   }
 }

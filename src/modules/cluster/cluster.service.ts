@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common'
 import { SaveClusterDto } from './dto/save-cluster.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { decrypt } from '../../utils/AESEncrypt'
 
 @Injectable()
 export class ClusterService {
@@ -12,7 +13,15 @@ export class ClusterService {
   ) {}
 
   findAll() {
-    return this.repository.find()
+    return this.repository.find().then((clusters) => {
+      return clusters.map((cluster) => {
+        cluster.evm_mnemonic &&
+          (cluster.evm_mnemonic = decrypt(cluster.evm_mnemonic))
+        cluster.sui_mnemonic &&
+          (cluster.sui_mnemonic = decrypt(cluster.sui_mnemonic))
+        return cluster
+      })
+    })
   }
 
   async save(saveClusterDto: SaveClusterDto) {

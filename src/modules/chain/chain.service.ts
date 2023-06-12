@@ -50,7 +50,7 @@ export class ChainService {
     return {}
   }
 
-  findOneBy(condition: FindOptionsWhere<Chain>) {
+  findOneBycondition(condition: FindOptionsWhere<Chain>) {
     return this.chainRepository.findOneBy(condition)
   }
 }

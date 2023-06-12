@@ -26,7 +26,7 @@ export class WalletService {
     wallet.address = randomWallet.address
     wallet.secret = encrypt(randomWallet.privateKey)
 
-    const chain: Chain = await this.chainService.findOneBy({
+    const chain: Chain = await this.chainService.findOneBycondition({
       topic: 'Ethereum'
     })
     wallet.chain = chain
@@ -43,7 +43,7 @@ export class WalletService {
     wallet.address = dto.address
     wallet.secret = dto.secret
     wallet.available = dto.available
-    const chain: Chain = await this.chainService.findOneBy({
+    const chain: Chain = await this.chainService.findOneBycondition({
       id: dto.chainId
     })
     wallet.chain = chain

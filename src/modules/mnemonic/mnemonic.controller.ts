@@ -26,14 +26,19 @@ export class MnemonicController {
     // 创建助记词的同时，创建钱包
     const chain = await this.chainService.findOne(createMnemonicDto.chain_id)
 
-    if (!chain.evm) {
+    // 非 evm 系, 且未提供 phrase, 则不能自动生成
+    if (!chain.evm && !createMnemonicDto.phrase) {
       return {
         code: 201,
         message: 'Only evm mnemonics are supported'
       }
     }
     const mnemonic = await this.mnemonicService.create(createMnemonicDto)
-    return await this.walletService.createByMnemonic(mnemonic, 0)
+
+    if (chain.evm) {
+      await this.walletService.createByMnemonic(mnemonic, 0)
+    }
+    return {}
   }
 
   @Post('create_wallet')
@@ -49,14 +54,6 @@ export class MnemonicController {
   @Get()
   findAll() {
     return this.mnemonicService.findAll()
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateMnemonicDto: UpdateMnemonicDto
-  ) {
-    return this.mnemonicService.update(+id, updateMnemonicDto)
   }
 
   @Delete(':id')
