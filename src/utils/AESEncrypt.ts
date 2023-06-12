@@ -3,11 +3,9 @@ import * as CryptoJS from 'crypto-js'
 export const encrypt = (text: string) => {
   const mode = CryptoJS.mode.CBC
   const padding = CryptoJS.pad.Pkcs7
-  const key = CryptoJS.enc.Utf8.parse(process.env.AES_KEY)
-  const iv = CryptoJS.enc.Utf8.parse(process.env.AES_KEY)
+  const key = process.env.AES_KEY
 
   const encrypted = CryptoJS.AES.encrypt(text, key, {
-    iv,
     mode,
     padding
   })
@@ -19,11 +17,8 @@ export const decrypt = (text: string) => {
   const mode = CryptoJS.mode.CBC
   const padding = CryptoJS.pad.Pkcs7
 
-  const key = CryptoJS.enc.Utf8.parse(process.env.AES_KEY)
-  const iv = CryptoJS.enc.Utf8.parse(process.env.AES_KEY)
-
+  const key = process.env.AES_KEY
   const decrypted = CryptoJS.AES.decrypt(text, key, {
-    iv,
     mode,
     padding
   })
