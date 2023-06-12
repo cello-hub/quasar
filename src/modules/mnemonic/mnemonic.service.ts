@@ -64,4 +64,8 @@ export class MnemonicService {
   remove(id: number) {
     return this.repository.delete(id)
   }
+
+  findOneByCondition(condition) {
+    return this.repository.findOneBy(condition)
+  }
 }

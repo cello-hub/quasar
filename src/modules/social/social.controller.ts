@@ -33,7 +33,7 @@ export class SocialController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.socialService.findOne(+id)
+    return this.socialService.findOneById(+id)
   }
 
   @Put(':id')

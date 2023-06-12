@@ -1,3 +1,4 @@
+import Cluster from './entities/cluster'
 import Balance from './entities/balance'
 import Chain from './entities/chain'
 import Couponer from './entities/couponer'
@@ -17,5 +18,6 @@ export default [
   RpcNode,
   Token,
   Balance,
-  Mnemonic
+  Mnemonic,
+  Cluster
 ]

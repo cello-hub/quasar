@@ -32,10 +32,6 @@ export class SocialService {
     })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} social`
-  }
-
   update(id: number, updateSocialDto: UpdateSocialDto) {
     return this.repository.update(id, {
       ...updateSocialDto,
@@ -49,5 +45,9 @@ export class SocialService {
 
   findOneById(id: number) {
     return this.repository.findOneBy({ id })
+  }
+
+  findOneByCondition(condition) {
+    return this.repository.findOneBy(condition)
   }
 }
