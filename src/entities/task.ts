@@ -6,6 +6,12 @@ import Ecosystem from './ecosystem'
 @Entity()
 export default class Task extends BaseEntity {
   @Column({
+    nullable: false,
+    comment: '任务吗'
+  })
+  name: string
+
+  @Column({
     type: 'timestamp',
     nullable: true,
     transformer: {
@@ -20,11 +26,6 @@ export default class Task extends BaseEntity {
   })
   date: Date
 
-  @Column({
-    nullable: false
-  })
-  name: string
-
   @ManyToOne(() => Ecosystem, { nullable: true })
   ecosystem: Ecosystem
 
@@ -32,7 +33,7 @@ export default class Task extends BaseEntity {
     default: false,
     comment: '任务是否完成'
   })
-  finished: false
+  finished: boolean
 
   @Column({
     nullable: true,

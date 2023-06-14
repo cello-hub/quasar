@@ -1,10 +1,11 @@
 import Ecosystem from '../../entities/ecosystem'
 import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
 import { CreateEcosystemDto } from './dto/create-ecosystem.dto'
 import { UpdateEcosystemDto } from './dto/update-ecosystem.dto'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Like, Repository } from 'typeorm'
 import { ChainService } from '../chain/chain.service'
+import { FindEcosystemDto } from './dto/find-ecosystem.dto'
 
 @Injectable()
 export class EcosystemService {
@@ -31,9 +32,10 @@ export class EcosystemService {
     return this.repository.save(eco)
   }
 
-  findAll() {
+  findAll(query: FindEcosystemDto) {
     return this.repository.find({
-      relations: ['chain']
+      relations: ['chain'],
+      where: [{ name: Like(`%${query.name}%`) }, { ...query }]
     })
   }
 

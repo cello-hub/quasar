@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Put, Param } from '@nestjs/common'
+import { Controller, Get, Post, Body, Put, Param, Query } from '@nestjs/common'
 import { EcosystemService } from './ecosystem.service'
 import { CreateEcosystemDto } from './dto/create-ecosystem.dto'
 import { UpdateEcosystemDto } from './dto/update-ecosystem.dto'
+import { FindEcosystemDto } from './dto/find-ecosystem.dto'
 
 @Controller('ecosystem')
 export class EcosystemController {
@@ -13,8 +14,10 @@ export class EcosystemController {
   }
 
   @Get()
-  findAll() {
-    return this.ecosystemService.findAll()
+  findAll(@Query() query: FindEcosystemDto) {
+    console.log(query)
+
+    return this.ecosystemService.findAll(query)
   }
 
   @Get(':id')

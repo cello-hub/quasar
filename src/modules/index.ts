@@ -10,6 +10,7 @@ import { TokenModule } from './token/token.module'
 import { TwitterModule } from './twitter/twitter.module'
 import { WalletModule } from './wallet/wallet.module'
 import { ClusterModule } from './cluster/cluster.module'
+import { TaskModule } from './task/task.module'
 
 export default [
   WalletModule,
@@ -23,5 +24,6 @@ export default [
   ScheduleModule,
   MnemonicModule,
   RpcNodeModule,
-  ClusterModule
+  ClusterModule,
+  TaskModule
 ]

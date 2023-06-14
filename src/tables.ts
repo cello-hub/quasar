@@ -8,6 +8,7 @@ import RpcNode from './entities/rpc-node'
 import Social from './entities/social'
 import Token from './entities/token'
 import Wallet from './entities/wallet'
+import Task from './entities/task'
 
 export default [
   Wallet,
@@ -19,5 +20,6 @@ export default [
   Token,
   Balance,
   Mnemonic,
-  Cluster
+  Cluster,
+  Task
 ]
