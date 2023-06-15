@@ -5,8 +5,7 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
-  Query
+  Delete
 } from '@nestjs/common'
 import { TaskService } from './task.service'
 import { CreateTaskDto } from './dto/create-task.dto'
