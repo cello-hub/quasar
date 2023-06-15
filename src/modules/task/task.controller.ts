@@ -22,14 +22,23 @@ export class TaskController {
     return this.taskService.create(createTaskDto)
   }
 
-  @Get()
-  findAll(@Query() task: Task) {
+  @Post('today')
+  findToday(@Body() task: Task) {
+    return this.taskService.findTodayTask(task)
+  }
+  @Post('future')
+  findFuture(@Body() task: Task) {
+    return this.taskService.findFutureTask(task)
+  }
+
+  @Post('list')
+  findAll(@Body() task: Task) {
     return this.taskService.findAll(task)
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.taskService.findOne(+id)
+  @Get(':id/reverse-finished')
+  reverseFinished(@Param('id') id: string) {
+    return this.taskService.reverseFinished(+id)
   }
 
   @Patch(':id')

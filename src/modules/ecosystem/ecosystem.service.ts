@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { CreateEcosystemDto } from './dto/create-ecosystem.dto'
 import { UpdateEcosystemDto } from './dto/update-ecosystem.dto'
-import { Like, Repository } from 'typeorm'
+import { FindOptionsWhere, Like, Repository } from 'typeorm'
 import { ChainService } from '../chain/chain.service'
 import { FindEcosystemDto } from './dto/find-ecosystem.dto'
 
@@ -33,9 +33,13 @@ export class EcosystemService {
   }
 
   findAll(query: FindEcosystemDto) {
+    const queryParams: FindOptionsWhere<Ecosystem> = query
+    if ('name' in query) {
+      queryParams.name = Like(`%${query.name}%`)
+    }
     return this.repository.find({
       relations: ['chain'],
-      where: [{ name: Like(`%${query.name}%`) }, { ...query }]
+      where: queryParams
     })
   }
 

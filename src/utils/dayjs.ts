@@ -7,4 +7,5 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 
 dayjs.tz.setDefault('Asia/Shanghai')
+
 export default dayjs

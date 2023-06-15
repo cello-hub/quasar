@@ -16,10 +16,10 @@ export default class Task extends BaseEntity {
     nullable: true,
     transformer: {
       from: (date: Date) => {
-        return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
+        return date ? dayjs(date).format('YYYY-MM-DD HH:mm:ss') : ''
       },
-      to: () => {
-        return new Date()
+      to: (date: Date) => {
+        return date
       }
     },
     comment: '待办时间, 为空表示待定'
