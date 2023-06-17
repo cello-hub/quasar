@@ -1,7 +1,6 @@
 import Cluster from './entities/cluster'
 import Balance from './entities/balance'
 import Chain from './entities/chain'
-import Couponer from './entities/couponer'
 import Ecosystem from './entities/ecosystem'
 import Mnemonic from './entities/mnemonic'
 import RpcNode from './entities/rpc-node'
@@ -9,11 +8,11 @@ import Social from './entities/social'
 import Token from './entities/token'
 import Wallet from './entities/wallet'
 import Task from './entities/task'
+import Participate from './entities/participate'
 
 export default [
   Wallet,
   Chain,
-  Couponer,
   Social,
   Ecosystem,
   RpcNode,
@@ -21,5 +20,6 @@ export default [
   Balance,
   Mnemonic,
   Cluster,
-  Task
+  Task,
+  Participate
 ]

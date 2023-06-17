@@ -3,7 +3,6 @@ import { SaveChainDto } from './dto/save-chain.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindOptionsWhere, Repository } from 'typeorm'
 import Chain from '../../entities/chain'
-import { TokenService } from '../token/token.service'
 
 @Injectable()
 export class ChainService {

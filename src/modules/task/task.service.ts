@@ -1,5 +1,5 @@
-import { CreateTaskDto } from './dto/create-task.dto'
-import { UpdateTaskDto } from './dto/update-task.dto'
+import { omit, pick, pickBy } from 'lodash'
+import { SaveTaskDto } from './dto/save-task.dto'
 import {
   Between,
   FindOperator,
@@ -14,6 +14,8 @@ import { InjectRepository } from '@nestjs/typeorm'
 import Task from '../../entities/task'
 import { EcosystemService } from '../ecosystem/ecosystem.service'
 import dayjs from '../../utils/dayjs'
+import Ecosystem from '../../entities/ecosystem'
+
 @Injectable()
 export class TaskService {
   constructor(
@@ -22,15 +24,31 @@ export class TaskService {
     private readonly ecosystemService: EcosystemService
   ) {}
 
-  async create(dto: CreateTaskDto) {
-    const task = new Task()
-    task.name = dto.name
-    task.date = new Date(dto.date)
-    if (dto.ecosystemId) {
-      task.ecosystem = await this.ecosystemService.findOne(dto.ecosystemId)
+  async save(dto: SaveTaskDto) {
+    console.log(dto)
+
+    let task: Task
+    if (dto.id) {
+      console.log('update')
+
+      let ecosystem: Ecosystem = null
+      if (dto.ecosystemId) {
+        ecosystem = await this.ecosystemService.findOne(dto.ecosystemId)
+      }
+      return this.repository.update(dto.id, {
+        ...pick(dto, ['name', 'finished', 'remark']),
+        ecosystem: ecosystem
+      })
+    } else {
+      task = new Task()
+      task.name = dto.name
+      task.date = new Date(dto.date)
+      if (dto.ecosystemId) {
+        task.ecosystem = await this.ecosystemService.findOne(dto.ecosystemId)
+      }
+      task.finished = dto.finished
+      task.remark = dto.remark
     }
-    task.finished = dto.finished
-    task.remark = dto.remark
 
     return this.repository.save(task)
   }
@@ -48,6 +66,11 @@ export class TaskService {
         finished: 'ASC'
       }
     })
+  }
+
+  findExpiredTask(task: Task) {
+    const end = dayjs().subtract(1, 'day').endOf('day').toDate()
+    return this.findTaskByDateRange(task, null, end)
   }
 
   findTodayTask(task: Task) {
@@ -93,13 +116,5 @@ export class TaskService {
 
   findOneById(id: number) {
     return this.repository.findOneBy({ id })
-  }
-
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} task`
   }
 }

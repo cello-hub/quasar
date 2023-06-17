@@ -1,4 +1,5 @@
-export class CreateTaskDto {
+export class SaveTaskDto {
+  id?: number
   name: string
   date?: string
   ecosystemId?: number

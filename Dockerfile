@@ -1,4 +1,5 @@
 FROM node:18-alpine
+ENV TZ=Asia/Shanghai
 
 # 设置工作目录
 WORKDIR /app
