@@ -1,3 +1,4 @@
+import { ParticipateTaskDto } from './dto/participate-task.dto'
 import { Controller, Post, Body } from '@nestjs/common'
 import { TaskService } from './task.service'
 import Task from '../../entities/task'
@@ -29,5 +30,10 @@ export class TaskController {
   @Post('list')
   findAll(@Body() task: Task) {
     return this.taskService.findAll(task)
+  }
+
+  @Post('participate')
+  participate(@Body() dto: ParticipateTaskDto) {
+    return this.taskService.participate(dto)
   }
 }

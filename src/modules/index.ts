@@ -1,3 +1,4 @@
+import { ParticipateModule } from './participate/participate.module'
 import { RpcNodeModule } from './rpc-node/rpc-node.module'
 import { AuthModule } from './auth/auth.module'
 import { BalanceModule } from './balance/balance.module'
@@ -25,5 +26,6 @@ export default [
   MnemonicModule,
   RpcNodeModule,
   ClusterModule,
-  TaskModule
+  TaskModule,
+  ParticipateModule
 ]

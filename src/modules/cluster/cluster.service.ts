@@ -2,7 +2,7 @@ import Cluster from '../../entities/cluster'
 import { Injectable } from '@nestjs/common'
 import { SaveClusterDto } from './dto/save-cluster.dto'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { In, Repository } from 'typeorm'
 import { decrypt } from '../../utils/AESEncrypt'
 
 @Injectable()
@@ -22,6 +22,22 @@ export class ClusterService {
         return cluster
       })
     })
+  }
+
+  findAllByIds(ids: number[]) {
+    return this.repository
+      .findBy({
+        id: In(ids)
+      })
+      .then((clusters) => {
+        return clusters.map((cluster) => {
+          cluster.evm_mnemonic &&
+            (cluster.evm_mnemonic = decrypt(cluster.evm_mnemonic))
+          cluster.sui_mnemonic &&
+            (cluster.sui_mnemonic = decrypt(cluster.sui_mnemonic))
+          return cluster
+        })
+      })
   }
 
   async save(saveClusterDto: SaveClusterDto) {

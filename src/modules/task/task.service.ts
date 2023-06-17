@@ -1,3 +1,5 @@
+import { ClusterService } from './../cluster/cluster.service'
+import { ParticipateTaskDto } from './dto/participate-task.dto'
 import { omit, pick, pickBy } from 'lodash'
 import { SaveTaskDto } from './dto/save-task.dto'
 import {
@@ -15,13 +17,16 @@ import Task from '../../entities/task'
 import { EcosystemService } from '../ecosystem/ecosystem.service'
 import dayjs from '../../utils/dayjs'
 import Ecosystem from '../../entities/ecosystem'
+import { ParticipateService } from '../participate/participate.service'
 
 @Injectable()
 export class TaskService {
   constructor(
     @InjectRepository(Task)
     private readonly repository: Repository<Task>,
-    private readonly ecosystemService: EcosystemService
+    private readonly ecosystemService: EcosystemService,
+    private readonly clusterService: ClusterService,
+    private readonly participateService: ParticipateService
   ) {}
 
   async save(dto: SaveTaskDto) {
@@ -115,6 +120,25 @@ export class TaskService {
   }
 
   findOneById(id: number) {
-    return this.repository.findOneBy({ id })
+    return this.repository.findOne({
+      where: {
+        id
+      },
+      relations: ['ecosystem']
+    })
+  }
+
+  async participate(dto: ParticipateTaskDto) {
+    const task = await this.findOneById(dto.taskId)
+    // 获取账号组
+    const clusterList = await this.clusterService.findAllByIds(dto.clusterIds)
+
+    //  TODO: puppeteer 自动执行
+
+    clusterList.forEach((cluster) => {
+      this.participateService.save({}, task.ecosystem, cluster)
+    })
+
+    return clusterList
   }
 }
