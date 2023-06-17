@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common'
-import chains from 'src/constants/chains'
-import Chain from 'src/entities/chain'
+import { Controller, Get, Post, Body, Param } from '@nestjs/common'
+import chains from '../../constants/chains'
 import { TokenService } from '../token/token.service'
 import { ChainService } from './chain.service'
 import { SaveChainDto } from './dto/save-chain.dto'

@@ -2,7 +2,7 @@ import Cluster from '../../entities/cluster'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import Ecosystem from '../../entities/ecosystem'
-import Participate from 'src/entities/participate'
+import Participate from '../../entities/participate'
 import { Repository } from 'typeorm'
 import { SaveParticipateDto } from './dto/save-participate.dto'
 
