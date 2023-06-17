@@ -47,7 +47,7 @@ export class TaskService {
     } else {
       task = new Task()
       task.name = dto.name
-      task.date = new Date(dto.date)
+      task.date = dto.date ? new Date(dto.date) : null
       if (dto.ecosystemId) {
         task.ecosystem = await this.ecosystemService.findOne(dto.ecosystemId)
       }

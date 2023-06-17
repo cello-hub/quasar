@@ -19,7 +19,7 @@ export default class Task extends BaseEntity {
         return date ? dayjs(date).format('YYYY-MM-DD HH:mm:ss') : ''
       },
       to: (date: Date) => {
-        return date
+        return date ?? null
       }
     },
     comment: '待办时间, 为空表示待定'
