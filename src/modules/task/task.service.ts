@@ -41,7 +41,7 @@ export class TaskService {
         ecosystem = await this.ecosystemService.findOne(dto.ecosystemId)
       }
       return this.repository.update(dto.id, {
-        ...pick(dto, ['name', 'finished', 'remark']),
+        ...pick(dto, ['name', 'finished', 'remark', 'date']),
         ecosystem: ecosystem
       })
     } else {

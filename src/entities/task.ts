@@ -7,7 +7,7 @@ import Ecosystem from './ecosystem'
 export default class Task extends BaseEntity {
   @Column({
     nullable: false,
-    comment: '任务吗'
+    comment: '任务名'
   })
   name: string
 
