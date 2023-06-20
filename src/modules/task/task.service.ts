@@ -135,18 +135,21 @@ export class TaskService {
         code: 500,
         message: 'The task was finished'
       }
-    // 获取账号组
-    const clusterList = await this.clusterService.findAllByIds(dto.clusterIds)
 
-    //  TODO: puppeteer 自动执行
+    if (dto.clusterIds && dto.clusterIds.length > 0) {
+      // 获取账号组
+      const clusterList = await this.clusterService.findAllByIds(dto.clusterIds)
 
-    for (let i = 0; i < clusterList.length; i++) {
-      const cluster = clusterList[i]
-      await this.participateService.save({}, task.ecosystem, cluster)
+      //  TODO: puppeteer 自动执行
+
+      for (let i = 0; i < clusterList.length; i++) {
+        const cluster = clusterList[i]
+        await this.participateService.save({}, task.ecosystem, cluster)
+      }
     }
 
     task.finished = true
     await this.repository.save(task)
-    return clusterList
+    return task
   }
 }
