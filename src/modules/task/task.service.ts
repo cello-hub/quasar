@@ -136,9 +136,23 @@ export class TaskService {
         message: 'The task was finished'
       }
 
+    // 获取已参与的记录
+    const participatedList = await this.participateService.findByEcosystemId(
+      task.ecosystem.id
+    )
+    const participatedClusterIds = participatedList.map(
+      (item) => item.cluster.id
+    )
+
     if (dto.clusterIds && dto.clusterIds.length > 0) {
+      // 排除已参与的
+      const ids: number[] = []
+      dto.clusterIds.forEach((id) => {
+        if (participatedClusterIds.indexOf(id) === -1) ids.push(id)
+      })
+
       // 获取账号组
-      const clusterList = await this.clusterService.findAllByIds(dto.clusterIds)
+      const clusterList = await this.clusterService.findAllByIds(ids)
 
       //  TODO: puppeteer 自动执行
 

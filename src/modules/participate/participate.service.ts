@@ -13,6 +13,15 @@ export class ParticipateService {
     private readonly repository: Repository<Participate>
   ) {}
 
+  findByEcosystemId(ecosystemId: number) {
+    return this.repository
+      .createQueryBuilder('participate')
+      .leftJoinAndSelect('participate.ecosystem', 'ecosystem')
+      .leftJoinAndSelect('participate.cluster', 'cluster')
+      .where('ecosystem.id=:id', { id: ecosystemId })
+      .getMany()
+  }
+
   save(dto: SaveParticipateDto, ecosystem?: Ecosystem, cluster?: Cluster) {
     const participate = new Participate()
     if (ecosystem) participate.ecosystem = ecosystem
