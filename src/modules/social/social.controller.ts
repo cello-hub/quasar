@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+  Query
+} from '@nestjs/common'
 import { SocialService } from './social.service'
 import { CreateSocialDto } from './dto/create-social.dto'
 import { UpdateSocialDto } from './dto/update-social.dto'
@@ -14,8 +23,8 @@ export class SocialController {
   }
 
   @Get()
-  findAll() {
-    return this.socialService.findAll()
+  findAll(@Query('platform') platform: string) {
+    return this.socialService.findAll(platform)
   }
 
   @Get('password/:id')

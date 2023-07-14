@@ -24,11 +24,14 @@ export class SocialService {
     return this.repository.save(social)
   }
 
-  findAll() {
+  findAll(platform: string) {
+    const whereOptions: { platform?: string } = {}
+    if (platform) whereOptions.platform = platform
     return this.repository.find({
       order: {
         created_at: 'DESC'
-      }
+      },
+      where: whereOptions
     })
   }
 
