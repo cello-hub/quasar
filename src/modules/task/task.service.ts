@@ -1,6 +1,6 @@
 import { ClusterService } from './../cluster/cluster.service'
 import { ParticipateTaskDto } from './dto/participate-task.dto'
-import { omit, pick, pickBy } from 'lodash'
+import { pick } from 'lodash'
 import { SaveTaskDto } from './dto/save-task.dto'
 import {
   Between,
